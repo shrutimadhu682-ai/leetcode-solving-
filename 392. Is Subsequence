@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        int n = s.size();
+        int m = t.size();
+
+        int j = 0;   // Current position in t
+
+        for (int i = 0; i < n; i++) {
+
+            // Move through t until we find s[i]
+            while (j < m && s[i] != t[j]) {
+                j++;
+            }
+
+            // If we reached the end of t, s[i] was not found
+            if (j == m)
+                return false;
+
+            // Move to the next character in t
+            j++;
+        }
+
+        return true;
+    }
+};
