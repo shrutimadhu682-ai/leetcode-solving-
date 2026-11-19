@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        vector<int> ds;
+        int indx = 0;
+        int s = 0;
+        int n = candidates.size();
+
+        return combinationSum(ds, target, indx, s, candidates, n, ans);
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& ds, int sum, int indx, int s, vector<int>& arr, int n, vector<vector<int>>& ans) {
+        if (indx == n) {
+            if (s == sum) {
+                ans.push_back(ds);
+            }
+            return ans;
+        }
+
+        // PICK
+        if (s + arr[indx] <= sum) {
+            ds.push_back(arr[indx]);
+            s += arr[indx];
+
+            combinationSum(ds, sum, indx, s, arr, n, ans);
+
+            s -= arr[indx];
+            ds.pop_back();
+        }
+
+        // NOT PICK
+        combinationSum(ds, sum, indx + 1, s, arr, n, ans);
+
+        return ans;
+    }
+};
