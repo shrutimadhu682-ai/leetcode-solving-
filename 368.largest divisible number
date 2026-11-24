@@ -1,0 +1,40 @@
+class Solution {
+public:
+vector<vector<int>>ans;
+void subset(int index,vector<int>&nums,vector<int>ds){
+    int n=nums.size();
+    if(index==n){
+        ans.push_back(ds);
+        return;
+
+    }
+    ds.push_back(nums[index]);
+    subset(index+1,nums,ds);
+    ds.pop_back();
+    subset(index+1,nums,ds);
+}
+bool check(vector<int>&ds){
+    int m=ds.size();
+    for(int i=0;i<m;i++){
+        for(int j=i+1;j<m;j++){
+            if(ds[i]%ds[j]!=0&&ds[j]%ds[i]!=0){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+    vector<int> largestDivisibleSubset(vector<int>& nums) {
+        ans.clear();
+        vector<int>ds;
+        subset(0,nums,ds);
+        vector<int>answer={};
+        for(auto s:ans){
+            if(check(s) && s.size() > answer.size()){
+                answer=s;
+            }
+        }
+        return answer;
+    }
+};
