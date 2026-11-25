@@ -1,0 +1,35 @@
+
+class Solution {
+public:
+
+    void solve(int indx, vector<int>& ds, vector<int>& nums,
+               vector<vector<int>>& ans, int n) {
+
+        // Base case
+        if (indx == n) {
+            ans.push_back(ds);
+            return;
+        }
+
+        // Pick the element
+        ds.push_back(nums[indx]);
+        solve(indx + 1, ds, nums, ans, n);
+
+        // Backtrack (remove the element)
+        ds.pop_back();
+
+        // Not pick the element
+        solve(indx + 1, ds, nums, ans, n);
+    }
+
+    vector<vector<int>> subsets(vector<int>& nums) {
+
+        vector<vector<int>> ans;
+        vector<int> ds;
+        int n = nums.size();
+
+        solve(0, ds, nums, ans, n);
+
+        return ans;
+    }
+};
